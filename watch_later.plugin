@@ -1,0 +1,9 @@
+[Plugin]
+Loader=python3
+Module=watch_later
+IAge=1
+Name=Watch later
+Description=Restores previously played file and position
+Authors=J. Nathanael Philipp (jnphilipp) <nathanael@philipp.land>
+Copyright=Copyright (C) 2020 J. Nathanael Philipp
+Website=https://github.com/jnphilipp/totem-plugin-watch-later

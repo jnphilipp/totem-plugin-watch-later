@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+.mypy_cache/
+
+# SublimeText
+*.sublime-project
+*.sublime-workspace
+
+# other
+.sync-exclude.lst

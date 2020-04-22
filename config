@@ -1,0 +1,17 @@
+[Config]
+
+# Load last played video on start (true/false, default is true).
+# The delay defines how long the wait will be before starting the last video (seconds, default is 2)
+# If you will start a video before the delay, the auto load will be disabled.
+restart_last = true
+restart_delay = 2
+
+# Update interval to get properties from totem (seconds, default is 3).
+update_interval = 3
+
+# Rewind the time on save (seconds, default is 10).
+rewind_time = 10
+
+# Save time only after a minimum runtime (seconds, default is 120) and befor a maximum time measured from the end (seconds, default is 90).
+min_runtime = 120
+max_runtime = 90
