@@ -32,7 +32,7 @@ from urllib.parse import unquote
 __author__ = 'J. Nathanael Philipp (jnphilipp)'
 __email__ = 'nathanael@philipp.land'
 __license__ = 'GPLv3'
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 __github__ = 'https://github.com/jnphilipp/totem-plugin-watch-later'
 
 
