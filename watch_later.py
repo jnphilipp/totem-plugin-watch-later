@@ -32,7 +32,7 @@ from urllib.parse import unquote
 __author__ = 'J. Nathanael Philipp (jnphilipp)'
 __email__ = 'nathanael@philipp.land'
 __license__ = 'GPLv3'
-__version__ = '0.1.1'
+__version__ = '0.2.0'
 __github__ = 'https://github.com/jnphilipp/totem-plugin-watch-later'
 
 
@@ -67,7 +67,28 @@ class WatchLaterPlugin(GObject.Object, Peas.Activatable):
     def hash(self) -> Optional[str]:
         if self.file is None:
             return None
-        return hashlib.blake2b(self.file.encode(), digest_size=16).hexdigest()
+        return hashlib.blake2b(self.relpath.encode(),
+                               digest_size=16).hexdigest()
+
+    @property
+    def mountpoint(self) -> str:
+        if self.file is None:
+            return ''
+        path = os.path.realpath(unquote(self.file.replace('file://', '')))
+        while not os.path.ismount(path):
+            path = os.path.dirname(path)
+        return '' if path == '/' else path
+
+    @property
+    def relpath(self) -> str:
+        if self.file is None:
+            return ''
+        mountpoint = self.mountpoint
+        if mountpoint == '':
+            return unquote(self.file.replace('file://', ''))
+        else:
+            return unquote(self.file.replace('file://', '')). \
+                replace(mountpoint, '')
 
     @property
     def watch_later_file(self) -> Optional[str]:
@@ -160,7 +181,8 @@ class WatchLaterPlugin(GObject.Object, Peas.Activatable):
             with open(self.watch_later_file, 'w', encoding='utf8') as f:
                 config = ConfigParser()
                 config['File'] = {
-                    'file': self.file.replace('%', '%%'),
+                    'file': self.relpath.replace('%', '%%'),
+                    'mountpoint': self.mountpoint.replace('%', '%%'),
                     'time': save_time,
                     'created': int(round(time.time() * 1000))
                 }
